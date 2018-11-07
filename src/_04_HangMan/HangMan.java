@@ -1,4 +1,3 @@
-// HangMan
 package _04_HangMan;
 
 import java.awt.event.KeyEvent;

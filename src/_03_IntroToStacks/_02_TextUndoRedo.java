@@ -7,6 +7,7 @@ import java.util.Stack;
 import javax.swing.*;
 
 public class _02_TextUndoRedo {
+	
 	/* 
 	 * Create a JFrame with a JPanel and a JLabel.
 	 * 
@@ -19,6 +20,7 @@ public class _02_TextUndoRedo {
 	 * off the Stack and added back to the JLabel.
 	 * 
 	 * */
+	
 	public static void main(String[] args) {
 		Stack<Character> deleted = new Stack<Character>();
 		
