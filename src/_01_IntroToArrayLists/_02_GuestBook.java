@@ -9,14 +9,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class _02_GuestBook {
+	
 
 	public static void main(String[] args) {
 		ArrayList<String> guestList = new ArrayList<String>();
 		// Create a GUI with two buttons. One button reads "Add Name" and the other
-		// button reads "View Names".
 		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel();
+		// button reads "View Names".
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
 
 		// When the add name button is clicked, display an input dialog that asks the

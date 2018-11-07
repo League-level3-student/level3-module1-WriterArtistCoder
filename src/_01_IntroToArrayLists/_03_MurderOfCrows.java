@@ -30,9 +30,25 @@ public class _03_MurderOfCrows {
          * 1. One of the Crows has eaten the diamond. You need to search through the stomach of each Crow, 
          * then print the name of the guilty Crow.
          */
-        
+    	int crowsSurgeried = 0;
+    	boolean breakThisLoopNowMan = false;
+        for (Crow craw : theMurder) {
+        	for (String ew : craw.getStomachContents()) {
+        		if (ew.equals("diamond")) {
+        			System.out.println(craw.getName());
+        			breakThisLoopNowMan = true;
+        			break;
+        		}
+        	}
+        	
+        	if (breakThisLoopNowMan) {
+        		break;
+        	}
+        	
+        	crowsSurgeried++;
+        }
         /* 2. How many innocent crows had to die before the diamond was found? */
-    	
+        System.out.println(crowsSurgeried);
     }
 
     private void initializeCrows() {
