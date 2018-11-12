@@ -29,5 +29,8 @@ public class _02_LogSearch {
 	 * 				is not in the list. 
 	 *
 	 * */
+	public static void main(String[] args) {
+		
+	}
 	
 }

@@ -1,17 +1,19 @@
 package _04_HangMan;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.swing.*;
 
 public class HangMan {
-	//"mailto:hangman@example.com?subject=Look at my Hangman score!&body=Look at my Hangman score! It's " + score
-	//Fix bug that makes you guess a limit of 2 words
+	// FIXME Fix bug that makes you lose life if letter is in word, but only if the previous letter was wrong
+	// FIXME Fix share button
+	public static String hangmanURL = "mailto:hangman@example.com?subject=Look%20at%20my%20Hangman%20score!&body=Look%20at%20my%20Hangman%20score!%20It's%20";
 	public static int origLives = 15;
 	
+	public int score;
 	public int lives;
 	public int words;
 	public Stack<String> dict;
@@ -32,6 +34,7 @@ public class HangMan {
 			String randomWord = Utilities.readRandomLineFromFile("dictionary.txt");
 			while (dict.contains(randomWord)) {
 				randomWord = Utilities.readRandomLineFromFile("dictionary.txt");
+				System.out.println(randomWord);
 			}
 			
 			dict.push(randomWord);
@@ -58,6 +61,20 @@ public class HangMan {
 		panel.add(timeElapsed);
 		frame.setVisible(true);
 		
+		JButton shareScore = new JButton("Share your score");
+		shareScore.setVisible(false);
+		shareScore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 try {
+					java.awt.Desktop.getDesktop().browse(new URI(hangmanURL + game.score + "!"));
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+			}
+		});
+		
+		panel.add(shareScore);
+		
 		frame.addKeyListener(new KeyListener() {
 
 			public void keyTyped(KeyEvent e) {
@@ -65,14 +82,28 @@ public class HangMan {
 			}
 			
 			
+			@SuppressWarnings("deprecation")
 			public void keyPressed(KeyEvent e) {
 				for (int i = 0; i < game.word.length(); i++) {
 					char c = game.word.charAt(i);
-					if (c == e.getKeyChar()) {
-						label.setText(label.getText().substring(0, i) + c + label.getText().substring(i+1));
-					} else if (!game.charsTried.contains(e.getKeyChar())) {
-						game.lives--;
-						game.charsTried.add(e.getKeyChar());
+					if (game.charsTried.contains(e.getKeyChar())) {
+						// If the character was already tried
+						break;
+					} else {
+						// If the character was not already tried
+						if (c == e.getKeyChar()) {
+							// If the character is the letter in the word
+							label.setText(label.getText().substring(0, i) + c + label.getText().substring(i+1));
+						} else if (i == game.word.length()-1) {
+							// If the character is not the letter in the word, and the letter is the last letter
+							game.lives--;
+							game.charsTried.add(e.getKeyChar());
+						}
+						
+						if (i == game.word.length()-1) {
+							// If the  letter is the last letter
+							game.charsTried.add(e.getKeyChar());
+						}
 					}
 				}
 			}
@@ -83,7 +114,8 @@ public class HangMan {
 			
 		});
 		
-		for (int i = 0; i < game.dict.size(); i++) {
+		int dictionaryPages = game.dict.size();
+		for (int i = 0; i < dictionaryPages; i++) {
 			game.lives = origLives;
 			game.word = game.dict.pop();
 			long time = System.currentTimeMillis();
@@ -110,5 +142,6 @@ public class HangMan {
 			game.charsTried.clear();
 		}
 		
+		shareScore.setVisible(true);
 	}
 }
