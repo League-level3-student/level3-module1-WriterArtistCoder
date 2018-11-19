@@ -77,8 +77,8 @@ public class _02_LogSearch {
 		gamma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s = "";
-				for (int i = 0; i < map.size(); i++) {
-					s += "Name: " + map.get(i) + " ID: " + i + "\n ";
+				for (int i = 0; i < map.keySet().size(); i++) {
+					s += "Name: " + map.get(map.keySet().toArray()[i]) + " ID: " + map.keySet().toArray()[i] + "\n ";
 				}
 				
 				JOptionPane.showMessageDialog(null, s);
