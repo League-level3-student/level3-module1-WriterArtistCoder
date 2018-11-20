@@ -34,10 +34,13 @@ public class _05_LongChipCompetition {
 		Beatle john = new Beatle("John");
 		Beatle paul = new Beatle("Paul");
 		Beatle ringo = new Beatle("Ringo");
+		
 		theBeatles.add(george);
 		theBeatles.add(john);
-		theBeatles.add(paul);
 		theBeatles.add(ringo);
+		theBeatles.add(paul);
+		
+		//theBeatles.add(ringo);
 	}
 	
 	public ArrayList<Beatle> getTheBand(){
